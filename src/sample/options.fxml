@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <children>
+        <Label text="OPTIONS">
+            <font>
+                <Font name="Agency FB" size="40.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="30.0" top="10.0" />
+            </VBox.margin></Label>
+        <GridPane prefHeight="300.0" prefWidth="600.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="171.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="197.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="172.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="109.0" minHeight="10.0" prefHeight="109.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <VBox prefHeight="134.0" prefWidth="178.0">
+                    <children>
+                        <Label text="TRYB GRY">
+                            <font>
+                                <Font name="Agency FB" size="25.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" left="30.0" />
+                            </VBox.margin>
+                        </Label>
+                        <CheckBox fx:id="singlePlayerButton" mnemonicParsing="false" onAction="#handleSingleplayerBox" text="SINGLEPLAYER">
+                            <font>
+                                <Font name="Agency FB" size="20.0" />
+                            </font>
+                        </CheckBox>
+                        <CheckBox fx:id="multiPlayerButton" mnemonicParsing="false" onAction="#handleMultiplayerBox" selected="true" text="MULTIPLAYER">
+                            <font>
+                                <Font name="Agency FB" size="20.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets top="20.0" />
+                            </VBox.margin>
+                        </CheckBox>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="134.0" prefWidth="199.0" GridPane.columnIndex="1">
+                    <children>
+                        <Label prefHeight="31.0" prefWidth="135.0" text="ZESTAW PIONÓW ">
+                            <font>
+                                <Font name="Agency FB" size="25.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <ComboBox value="White x Black">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="White x Black" />
+                                    <String fx:value="White x Red" />
+                                    <String fx:value="Red x Black" />
+                                </FXCollections>
+                            </items>
+                            <VBox.margin>
+                                <Insets right="10.0" />
+                            </VBox.margin>
+                        </ComboBox>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2">
+                    <children>
+                        <Label text="ROZMIAR PLANSZY">
+                            <font>
+                                <Font name="Agency FB" size="25.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <ComboBox value="8x8">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="8x8" />
+                                    <String fx:value="10x10" />
+                                </FXCollections>
+                            </items>
+                            <VBox.margin>
+                                <Insets right="40.0" />
+                            </VBox.margin>
+                        </ComboBox>
+                    </children>
+                </VBox>
+                <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="CZAS GRY">
+                            <font>
+                                <Font name="Agency FB" size="25.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="20.0" />
+                            </padding>
+                        </Label>
+                        <Slider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" value="1.0" />
+                    </children>
+                </VBox>
+            </children>
+            <VBox.margin>
+                <Insets left="40.0" right="40.0" />
+            </VBox.margin>
+        </GridPane>
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#loadStart" text="BACK">
+            <opaqueInsets>
+                <Insets />
+            </opaqueInsets>
+            <font>
+                <Font name="Agency FB" size="20.0" />
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" top="20.0" />
+            </VBox.margin></Button>
+    </children>
+</VBox>
