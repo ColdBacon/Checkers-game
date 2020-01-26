@@ -6,11 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
-
 
     /*
     int secondsPassed = 0;
@@ -27,8 +27,15 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("CHECKERS");
+
+        Image image = new Image ("sample/space.png");
+        ImageView mv = new ImageView(image);
+        Group root_image = new Group();
+        root_image.getChildren().addAll(mv);
+
         primaryStage.setScene(new Scene(root, 600  , 600));
         primaryStage.setResizable(false);
+
         primaryStage.getIcons().add(new Image("sample/menu.png"));
         primaryStage.show();
 
@@ -38,6 +45,8 @@ public class Main extends Application {
             closeProgram(primaryStage);
         });
     }
+
+
 
     public static void main(String[] args) {
         launch(args);

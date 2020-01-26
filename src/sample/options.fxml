@@ -4,10 +4,11 @@
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: WHITE;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('sample/background.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Label text="OPTIONS">
             <font>
@@ -86,7 +87,7 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </Label>
-                        <ComboBox value="8x8">
+                        <ComboBox fx:id="rozmiarCombo" value="8x8">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="8x8" />
@@ -120,7 +121,7 @@
                 <Insets left="40.0" right="40.0" />
             </VBox.margin>
         </GridPane>
-        <Button fx:id="backButton" mnemonicParsing="false" onAction="#loadStart" text="BACK">
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#loadStart" style="-fx-background-color: lightgrey;" text="BACK">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
@@ -129,6 +130,16 @@
             </font>
             <VBox.margin>
                 <Insets bottom="20.0" top="20.0" />
-            </VBox.margin></Button>
+            </VBox.margin>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Button>
     </children>
 </VBox>

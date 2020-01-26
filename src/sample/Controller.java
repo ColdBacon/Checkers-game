@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class Controller {
     @FXML private CheckBox singlePlayerButton, multiPlayerButton;
     @FXML private VBox startWindow, optionsWindow;
     @FXML private GridPane gameWindow;
+    @FXML private ComboBox rozmiarCombo;
 
     @FXML
     private void closeButtonAction(){
@@ -65,6 +67,7 @@ public class Controller {
         }
     }
 
+    @FXML
     public void loadGame () throws IOException {
         Checkers checkers = new Checkers(60,8);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
