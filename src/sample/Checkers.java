@@ -19,7 +19,7 @@ public class Checkers {
         this.TILE_SIZE = tile;
         this.WIDTH = size;
         this.HEIGHT = size;
-        this.board = new Tile[WIDTH][HEIGHT];
+        this.board = new Tile[WIDTH+1][HEIGHT+1];
     }
 
     private Group tileGroup = new Group();
@@ -31,8 +31,8 @@ public class Checkers {
         //root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
+        for (int y = 1; y < HEIGHT+1; y++) {
+            for (int x = 1; x < WIDTH+1; x++) {
                 Tile tile = new Tile(TILE_SIZE,(x + y) % 2 == 0, x, y);
                 board[x][y] = tile;
 
@@ -40,11 +40,11 @@ public class Checkers {
 
                 Piece piece = null;
 
-                if (y <= 2 && (x + y) % 2 != 0) {
+                if (y <= 3 && (x + y) % 2 != 0) {
                     piece = makePiece(PieceType.RED, x, y);
                 }
 
-                if (y >= WIDTH-3 && (x + y) % 2 != 0) {
+                if (y >= WIDTH-2 && (x + y) % 2 != 0) {
                     piece = makePiece(PieceType.WHITE, x, y);
                 }
 
@@ -102,7 +102,7 @@ public class Checkers {
 
             MoveResult result;
 
-            if (newX < 0 || newY < 0 || newX >= WIDTH || newY >= HEIGHT) {
+            if (newX < 1 || newY < 1 || newX >= WIDTH+1 || newY >= HEIGHT+1) {
                 result = new MoveResult(MoveType.NONE);
             } else {
                 result = tryMove(piece, newX, newY);

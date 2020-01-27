@@ -31,16 +31,16 @@ public class Piece extends StackPane {
 
         move(x, y);
 
-        Ellipse bg = new Ellipse(TILE_SIZE * 0.3125, TILE_SIZE * 0.26);
+        Ellipse bg = new Ellipse(TILE_SIZE * 0.31, TILE_SIZE * 0.25);
         bg.setFill(Color.BLACK);
 
         bg.setStroke(Color.BLACK);
         bg.setStrokeWidth(TILE_SIZE * 0.03);
 
-        bg.setTranslateX((TILE_SIZE - TILE_SIZE * 0.3125 * 2) / 2);
-        bg.setTranslateY((TILE_SIZE - TILE_SIZE * 0.26 * 2) / 2 + TILE_SIZE * 0.07);
+        bg.setTranslateX((TILE_SIZE - TILE_SIZE * 0.31 * 2) / 2);
+        bg.setTranslateY((TILE_SIZE - TILE_SIZE * 0.25 * 2) / 2 + TILE_SIZE * 0.07);
 
-        Ellipse ellipse = new Ellipse(TILE_SIZE * 0.3125, TILE_SIZE * 0.26);
+        Ellipse ellipse = new Ellipse(TILE_SIZE * 0.31, TILE_SIZE * 0.25);
         ellipse.setFill(type == PieceType.RED
                 //? Color.valueOf("#c40003") : Color.valueOf("#fff9f4"));
                 ? Color.WHITE : Color.RED);
@@ -48,8 +48,8 @@ public class Piece extends StackPane {
         ellipse.setStroke(Color.BLACK);
         ellipse.setStrokeWidth(TILE_SIZE * 0.03);
 
-        ellipse.setTranslateX((TILE_SIZE - TILE_SIZE * 0.3125 * 2) / 2);
-        ellipse.setTranslateY((TILE_SIZE - TILE_SIZE * 0.26 * 2) / 2);
+        ellipse.setTranslateX((TILE_SIZE - TILE_SIZE * 0.31 * 2) / 2);
+        ellipse.setTranslateY((TILE_SIZE - TILE_SIZE * 0.25 * 2) / 2);
 
         getChildren().addAll(bg, ellipse);
 
@@ -62,6 +62,7 @@ public class Piece extends StackPane {
             relocate(e.getSceneX() - mouseX + oldX, e.getSceneY() - mouseY + oldY);
         });
     }
+
 
     public void move(int x, int y) {
         oldX = x * TILE_SIZE;

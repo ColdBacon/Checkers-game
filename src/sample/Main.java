@@ -33,7 +33,7 @@ public class Main extends Application {
         Group root_image = new Group();
         root_image.getChildren().addAll(mv);
 
-        primaryStage.setScene(new Scene(root, 600  , 600));
+        primaryStage.setScene(new Scene(root, 700  , 700));
         primaryStage.setResizable(false);
 
         primaryStage.getIcons().add(new Image("sample/menu.png"));

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('sample/background.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/game.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Label text="OPTIONS">
             <font>
@@ -63,12 +63,12 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </Label>
-                        <ComboBox value="White x Black">
+                        <ComboBox fx:id="colorCombo" onAction="#colors" value="White x Black">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="White x Black" />
-                                    <String fx:value="White x Red" />
-                                    <String fx:value="Red x Black" />
+                                    <String fx:value="WHITE x BLACK" />
+                                    <String fx:value="WHITE x RED" />
+                                    <String fx:value="RED x BLACK" />
                                 </FXCollections>
                             </items>
                             <VBox.margin>
@@ -87,7 +87,7 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="rozmiarCombo" value="8x8">
+                        <ComboBox fx:id="rozmiarCombo" onAction="#board_size" value="8x8">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="8x8" />
@@ -113,7 +113,7 @@
                                 <Insets bottom="20.0" />
                             </padding>
                         </Label>
-                        <Slider blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" value="1.0" />
+                        <Slider fx:id="time" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseDragEntered="#timer" showTickLabels="true" snapToTicks="true" value="1.0" />
                     </children>
                 </VBox>
             </children>
