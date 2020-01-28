@@ -27,8 +27,8 @@ public class Checkers {
 
     public Pane createContent() {
         Pane root = new Pane();
-        root.setPrefSize(600,600);
-        //root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
+        //root.setPrefSize(600,600);
+        root.setPrefSize(WIDTH * TILE_SIZE, HEIGHT * TILE_SIZE);
         root.getChildren().addAll(tileGroup, pieceGroup);
 
         for (int y = 1; y < HEIGHT+1; y++) {

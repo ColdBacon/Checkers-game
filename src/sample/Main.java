@@ -28,11 +28,6 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("CHECKERS");
 
-        Image image = new Image ("sample/space.png");
-        ImageView mv = new ImageView(image);
-        Group root_image = new Group();
-        root_image.getChildren().addAll(mv);
-
         primaryStage.setScene(new Scene(root, 700  , 700));
         primaryStage.setResizable(false);
 
@@ -45,8 +40,6 @@ public class Main extends Application {
             closeProgram(primaryStage);
         });
     }
-
-
 
     public static void main(String[] args) {
         launch(args);

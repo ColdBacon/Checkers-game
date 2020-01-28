@@ -63,7 +63,7 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </Label>
-                        <ComboBox fx:id="colorCombo" onAction="#colors" value="White x Black">
+                        <ComboBox fx:id="colorCombo" onAction="#colors" value="WHITE x BLACK">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="WHITE x BLACK" />
@@ -113,7 +113,7 @@
                                 <Insets bottom="20.0" />
                             </padding>
                         </Label>
-                        <Slider fx:id="time" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseDragEntered="#timer" showTickLabels="true" snapToTicks="true" value="1.0" />
+                        <Slider fx:id="clock" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" onMouseReleased="#timer" onTouchReleased="#timer" showTickLabels="true" snapToTicks="true" value="1.0" />
                     </children>
                 </VBox>
             </children>

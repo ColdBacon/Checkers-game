@@ -29,4 +29,5 @@ public class Tile extends Rectangle {
 
         setFill(light ? Color.LIGHTGRAY : Color.DARKGRAY);
     }
+
 }

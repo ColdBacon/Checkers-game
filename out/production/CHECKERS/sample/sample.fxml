@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="startWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-image: url('sample/game.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox fx:id="startWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/game.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
         <Label text="WELCOME TO THE CHECKERS" textFill="WHITE">
             <font>
@@ -23,16 +23,16 @@
             <font>
                 <Font name="Agency FB" size="25.0" />
             </font>
-         <effect>
-            <Lighting>
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
+            <effect>
+                <Lighting>
+                    <bumpInput>
+                        <Shadow />
+                    </bumpInput>
+                    <light>
+                        <Light.Distant />
+                    </light>
+                </Lighting>
+            </effect>
         </Button>
         <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadSecond" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: white;" text="OPTIONS">
             <VBox.margin>
@@ -41,16 +41,16 @@
             <font>
                 <Font name="Agency FB" size="25.0" />
             </font>
-         <effect>
-            <Lighting>
-               <bumpInput>
-                  <Shadow />
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
+            <effect>
+                <Lighting>
+                    <bumpInput>
+                        <Shadow />
+                    </bumpInput>
+                    <light>
+                        <Light.Distant />
+                    </light>
+                </Lighting>
+            </effect>
         </Button>
         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: white;" text="EXIT">
             <VBox.margin>
@@ -59,20 +59,20 @@
             <font>
                 <Font name="Agency FB" size="25.0" />
             </font>
-         <effect>
-            <Lighting>
-               <bumpInput>
-                  <MotionBlur>
-                     <input>
-                        <Shadow />
-                     </input>
-                  </MotionBlur>
-               </bumpInput>
-               <light>
-                  <Light.Distant />
-               </light>
-            </Lighting>
-         </effect>
+            <effect>
+                <Lighting>
+                    <bumpInput>
+                        <MotionBlur>
+                            <input>
+                                <Shadow />
+                            </input>
+                        </MotionBlur>
+                    </bumpInput>
+                    <light>
+                        <Light.Distant />
+                    </light>
+                </Lighting>
+            </effect>
         </Button>
     </children>
 </VBox>
