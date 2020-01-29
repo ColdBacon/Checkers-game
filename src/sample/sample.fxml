@@ -6,22 +6,25 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="startWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/game.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<VBox fx:id="startWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/wood.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <Label text="WELCOME TO THE CHECKERS" textFill="WHITE">
+        <Label text="WELCOME TO THE CHECKERS">
             <font>
-                <Font name="Agency FB" size="40.0" />
+                <Font name="Agency FB" size="45.0" />
             </font>
             <effect>
                 <Blend />
             </effect>
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
         </Label>
         <Button fx:id="startButton" mnemonicParsing="false" onAction="#loadGame" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: white;" text="START">
             <VBox.margin>
                 <Insets top="30.0" />
             </VBox.margin>
             <font>
-                <Font name="Agency FB" size="25.0" />
+                <Font name="Agency FB" size="30.0" />
             </font>
             <effect>
                 <Lighting>
@@ -34,12 +37,12 @@
                 </Lighting>
             </effect>
         </Button>
-        <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadSecond" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: white;" text="OPTIONS">
+        <Button fx:id="loadButton" mnemonicParsing="false" onAction="#loadSecond" prefHeight="57.0" prefWidth="125.0" style="-fx-background-color: white;" text="OPTIONS">
             <VBox.margin>
-                <Insets top="20.0" />
+                <Insets top="30.0" />
             </VBox.margin>
             <font>
-                <Font name="Agency FB" size="25.0" />
+                <Font name="Agency FB" size="30.0" />
             </font>
             <effect>
                 <Lighting>
@@ -54,10 +57,10 @@
         </Button>
         <Button fx:id="exitButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="50.0" prefWidth="120.0" style="-fx-background-color: white;" text="EXIT">
             <VBox.margin>
-                <Insets top="20.0" />
+                <Insets top="30.0" />
             </VBox.margin>
             <font>
-                <Font name="Agency FB" size="25.0" />
+                <Font name="Agency FB" size="30.0" />
             </font>
             <effect>
                 <Lighting>
