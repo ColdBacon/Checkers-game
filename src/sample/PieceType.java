@@ -8,4 +8,6 @@ public enum PieceType {
     PieceType(int moveDir) {
         this.moveDir = moveDir;
     }
+
+
 }

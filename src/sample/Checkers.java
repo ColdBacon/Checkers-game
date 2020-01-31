@@ -15,6 +15,7 @@ public class Checkers {
     private int HEIGHT;
     private Tile[][] board;
     private String color1, color2;
+    boolean lastColor;
 
     public Checkers(int tile, int size, String col1, String col2){
         this.TILE_SIZE = tile;
@@ -23,15 +24,14 @@ public class Checkers {
         this.board = new Tile[WIDTH+1][HEIGHT+1];
         this.color1 = col1;
         this.color2 = col2;
+        this.lastColor = true;
     }
 
     private Group tileGroup = new Group();
     private Group pieceGroup = new Group();
 
-    boolean lastColor=true, gameOver, opponentSet;
-
-    public boolean getLastColor() {
-        return lastColor;
+    public int getHEIGHT() {
+        return HEIGHT;
     }
 
     public Pane createContent() {
@@ -71,43 +71,47 @@ public class Checkers {
         System.out.println(piece.getType());
         System.out.println("NEW X:"+newX);
         System.out.println("NEW Y:"+newY);
-        if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
-            return new MoveResult(MoveType.NONE);
+        if(attemptMove(this.lastColor) == piece.getType()) {
+
+            if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
+                return new MoveResult(MoveType.NONE);
+            }
+
+            int x0 = toBoard(piece.getOldX());
+            int y0 = toBoard(piece.getOldY());
+
+
+            if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
+                if (newY == 1) {
+                    this.lastColor = !this.lastColor;
+                    return new MoveResult(MoveType.QUEEN1); }
+
+                else if (newY == getHEIGHT()) {
+                    this.lastColor = !this.lastColor;
+                    return new MoveResult(MoveType.QUEEN2); }
+
+                else {
+                    this.lastColor = !this.lastColor;
+                    return new MoveResult(MoveType.NORMAL); }
+
+            } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
+
+                int x1 = x0 + (newX - x0) / 2;
+                int y1 = y0 + (newY - y0) / 2;
+
+
+                if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
+                    this.lastColor = !this.lastColor;
+                    return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+                }
+            }
         }
-
-        int x0 = toBoard(piece.getOldX());
-        int y0 = toBoard(piece.getOldY());
-
-
-        if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
-            if (newY == 1){
-                System.out.println("WHITE QUEEN");
-                return new MoveResult(MoveType.QUEEN1);
-            }
-
-            else if (newY == 8){
-                System.out.println("BLACK QUEEN");
-                return new MoveResult(MoveType.QUEEN2);
-            }
-
-            else return new MoveResult(MoveType.NORMAL);
-        } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
-
-            int x1 = x0 + (newX - x0) / 2;
-            int y1 = y0 + (newY - y0) / 2;
-
-            if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
-                return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
-            }
-        }
-
         return new MoveResult(MoveType.NONE);
     }
 
     private int toBoard(double pixel) {
         return (int)(pixel + TILE_SIZE / 2) / TILE_SIZE;
     }
-
 
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, TILE_SIZE,x, y,color1, color2);
@@ -134,7 +138,7 @@ public class Checkers {
                 case NORMAL:
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
-                    //board[newX][newY].setPiece(piece);
+                    board[newX][newY].setPiece(piece);
                     break;
                 case KILL:
                     piece.move(newX, newY);
@@ -144,6 +148,7 @@ public class Checkers {
                     Piece otherPiece = result.getPiece();
                     board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
                     pieceGroup.getChildren().remove(otherPiece);
+                    endGame(pieceGroup);
                     break;
                 case QUEEN1:
                     piece.move(newX, newY);
@@ -170,7 +175,8 @@ public class Checkers {
 
         return piece;
     }
-    private void endGame(){
+
+    private void endGame(Group pieceG){
         int playerOne = 0;
         int playerTwo = 0;
         for (int y = 1; y < HEIGHT+1; y++) {
@@ -185,5 +191,10 @@ public class Checkers {
         }
         if (playerOne== 0) System.out.println("Wygral zawodnik 2");
         else if (playerTwo== 0) System.out.println("Wygral zawodnik 1");
+    }
+
+    private PieceType attemptMove(boolean lastColor){
+        if(lastColor) return PieceType.WHITE;
+        else return PieceType.RED;
     }
 }

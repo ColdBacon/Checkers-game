@@ -52,24 +52,23 @@ public class Piece extends StackPane {
 
         Ellipse ellipse = new Ellipse(TILE_SIZE * 0.31, TILE_SIZE * 0.25);
 
-        if (color1.equals("WHITE") && color2.equals("RED"))
+        if (color1.equals("WHITE") && color2.equals("RED")){
             if (type == PieceType.WHITE) ellipse.setFill(Color.WHITE);
             else if (type == PieceType.RED) ellipse.setFill(Color.RED);
             else if (type == PieceType.QUEEN_WHITE) ellipse.setFill(Color.WHITE);
-            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.RED);
+            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.RED);}
 
-        else if (color1.equals("WHITE") && color2.equals("BLACK"))
+        else if (color1.equals("WHITE") && color2.equals("BLACK")){
             if (type == PieceType.WHITE) ellipse.setFill(Color.WHITE);
             else if (type == PieceType.RED) ellipse.setFill(Color.valueOf("#2a2a2b"));
             else if (type == PieceType.QUEEN_WHITE) ellipse.setFill(Color.WHITE);
-            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.valueOf("#2a2a2b"));
+            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.valueOf("#2a2a2b"));}
 
-        else if (color1.equals("RED") && color2.equals("BLACK"))
+        else if (color1.equals("RED") && color2.equals("BLACK")){
             if (type == PieceType.WHITE) ellipse.setFill(Color.RED);
             else if (type == PieceType.RED) ellipse.setFill(Color.valueOf("#2a2a2b"));
             else if (type == PieceType.QUEEN_WHITE) ellipse.setFill(Color.RED);
-            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.valueOf("#2a2a2b"));
-
+            else if (type == PieceType.QUEEN_RED) ellipse.setFill(Color.valueOf("#2a2a2b"));}
 
         if (type == PieceType.QUEEN_RED || type == PieceType.QUEEN_WHITE){
             ellipse.setStroke(Color.GOLD);
