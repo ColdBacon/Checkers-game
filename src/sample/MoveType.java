@@ -1,5 +1,5 @@
 package sample;
 
 public enum MoveType {
-    NONE, NORMAL, KILL
+    NONE, NORMAL, KILL, QUEEN1,QUEEN2,
 }

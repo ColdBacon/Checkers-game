@@ -26,7 +26,7 @@ public class OptionsController {
         int tile;
         if (options.size == 8) tile = 60;
         else tile = 50;
-        Checkers checkers = new Checkers(tile, options.size);
+        Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
         gameWindow.getChildren().add(checkers.createContent());
         optionsWindow.getChildren().setAll(gameWindow);
@@ -68,8 +68,8 @@ public class OptionsController {
         while (stringTokenizer.hasMoreTokens()) {
             String color1 = stringTokenizer.nextToken();
             String color2 = stringTokenizer.nextToken();
-            //System.out.println(color1);
-            //System.out.println(color2);
+            System.out.println(color1);
+            System.out.println(color2);
             options.setColor1(color1);
             options.setColor2(color2);
         }

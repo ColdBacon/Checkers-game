@@ -51,7 +51,7 @@ public class Controller {
 
     @FXML
     public void loadGame() throws IOException {
-        Checkers checkers = new Checkers(60, 8);
+        Checkers checkers = new Checkers(60, 8, "WHITE", "RED");
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
         gameWindow.getChildren().add(checkers.createContent());
         startWindow.getChildren().setAll(gameWindow);

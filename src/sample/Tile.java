@@ -27,7 +27,7 @@ public class Tile extends Rectangle {
 
         relocate(x * TILE_SIZE, y * TILE_SIZE);
 
-        setFill(light ? Color.LIGHTGRAY : Color.DARKGRAY);
+        setFill(light ? Color.LIGHTGREY : Color.DARKGRAY);
     }
 
 }
