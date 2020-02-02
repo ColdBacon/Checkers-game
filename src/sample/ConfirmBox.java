@@ -14,7 +14,7 @@ public class ConfirmBox {
 
     static boolean answer;
 
-    public static boolean display(String title, String message){
+    public static boolean display(String title, String message, String button1, String button2){
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle(title);
@@ -25,8 +25,8 @@ public class ConfirmBox {
         label.setText(message);
 
         //create two buttons
-        Button yesButton = new Button("Yes");
-        Button noButton = new Button("NO");
+        Button yesButton = new Button(button1);
+        Button noButton = new Button(button2);
 
         yesButton.setOnAction(e -> {
             answer = true;

@@ -25,6 +25,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        /*
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("CHECKERS");
 
@@ -33,6 +34,8 @@ public class Main extends Application {
 
         primaryStage.getIcons().add(new Image("sample/menu.png"));
         primaryStage.show();
+        */
+        Controller.init(primaryStage);
 
         primaryStage.setOnCloseRequest(e ->
         {
@@ -46,7 +49,7 @@ public class Main extends Application {
     }
 
     private void closeProgram(Stage primaryStage) {
-        Boolean answer = ConfirmBox.display("EXIT", "Sure you want to exit?");
+        Boolean answer = ConfirmBox.display("EXIT", "Sure you want to exit?", "YES", "NEVER");
         if (answer)
             primaryStage.close();
     }

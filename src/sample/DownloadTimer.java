@@ -1,10 +1,11 @@
 package sample;
 
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+
 import java.time.LocalDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Date;
-import java.util.Calendar;
 
 public class DownloadTimer{
     private int minutes;
@@ -12,17 +13,15 @@ public class DownloadTimer{
     private Timer innerTimer = new Timer();
     private TimerTask innerTask;
     private boolean isActive;
+    private String S ="";
 
     public DownloadTimer(int minutes, int seconds) {
-        if (seconds > 60) {
-            int minToAdd = seconds / 60;
-            this.minutes = minutes;
-            this.minutes += minToAdd;
-            this.seconds = seconds % 60;}
-        else {
-            this.minutes = minutes;
-            this.seconds = seconds;}
-        }
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.isActive = false;
+    }
+
+    //Label label = new Label (minutes + " : " + seconds);
 
     public void start() {
         innerTask = new TimerTask() {
@@ -37,11 +36,23 @@ public class DownloadTimer{
                     isActive = false;
                     innerTimer.cancel();
                     innerTimer.purge();
-                    System.out.println("DownloadTimer DONE"); }
+                    System.out.println("TIME IS OVER");
+                }
                 else {
                     seconds -= 1; }
+               // label.setText(minutes + " : " + seconds);
+                System.out.println(minutes + " : " + seconds);
              }
         };
         innerTimer.scheduleAtFixedRate(innerTask, 0, 1000);
+    }
+
+    private void endTime(){
+        Boolean answer = ConfirmBox.display("THE GAME IS OVER", "THE TIME IS OVER!", "NEW GAME", "EXIT");
+        System.out.println(answer);
+        if (!answer){
+            Platform.exit();
+            System.exit(0);
+        }
     }
 }

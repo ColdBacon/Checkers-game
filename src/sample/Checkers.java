@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -15,7 +16,9 @@ public class Checkers {
     private int HEIGHT;
     private Tile[][] board;
     private String color1, color2;
-    boolean lastColor;
+    private boolean lastColor;
+    private int WHITEcounter;
+    private int REDcounter;
 
     public Checkers(int tile, int size, String col1, String col2){
         this.TILE_SIZE = tile;
@@ -25,6 +28,8 @@ public class Checkers {
         this.color1 = col1;
         this.color2 = col2;
         this.lastColor = true;
+        this.WHITEcounter = (int) (size * 1.5);
+        this.REDcounter = (int) (size * 1.5);
     }
 
     private Group tileGroup = new Group();
@@ -71,6 +76,10 @@ public class Checkers {
         System.out.println(piece.getType());
         System.out.println("NEW X:"+newX);
         System.out.println("NEW Y:"+newY);
+
+        System.out.println("COUNTER WHITE: " + this.WHITEcounter);
+        System.out.println("COUNTER RED: " + this.REDcounter);
+
         if(attemptMove(this.lastColor) == piece.getType()) {
 
             if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
@@ -80,13 +89,14 @@ public class Checkers {
             int x0 = toBoard(piece.getOldX());
             int y0 = toBoard(piece.getOldY());
 
-
             if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
-                if (newY == 1) {
+                if (newY == 1 && piece.getType() == PieceType.WHITE) {
+                    System.out.println("KROLOWA");
                     this.lastColor = !this.lastColor;
                     return new MoveResult(MoveType.QUEEN1); }
 
-                else if (newY == getHEIGHT()) {
+                else if (newY == this.getHEIGHT() && piece.getType() == PieceType.RED) {
+                    System.out.println("KROLOWA 2");
                     this.lastColor = !this.lastColor;
                     return new MoveResult(MoveType.QUEEN2); }
 
@@ -148,7 +158,18 @@ public class Checkers {
                     Piece otherPiece = result.getPiece();
                     board[toBoard(otherPiece.getOldX())][toBoard(otherPiece.getOldY())].setPiece(null);
                     pieceGroup.getChildren().remove(otherPiece);
-                    endGame(pieceGroup);
+                    if(piece.getType() == PieceType.WHITE || piece.getType() == PieceType.QUEEN_WHITE) this.REDcounter -= 1;
+                    else if(piece.getType() == PieceType.RED || piece.getType() == PieceType.QUEEN_RED ) this.WHITEcounter -= 1;
+
+                    if (this.REDcounter == 0) {
+                        System.out.println("WHITE WIN");
+                        endGame("WHITE WIN");
+                    }
+                    else if (this.WHITEcounter == 0) {
+                        System.out.println("RED WIN");
+                        endGame("RED WIN");
+                    }
+
                     break;
                 case QUEEN1:
                     piece.move(newX, newY);
@@ -176,21 +197,13 @@ public class Checkers {
         return piece;
     }
 
-    private void endGame(Group pieceG){
-        int playerOne = 0;
-        int playerTwo = 0;
-        for (int y = 1; y < HEIGHT+1; y++) {
-            for (int x = 1; x < WIDTH + 1; x++) {
-                if (board[x][y].getPiece().getType() == PieceType.WHITE){
-                    playerOne +=1;
-                }
-                if (board[x][y].getPiece().getType() == PieceType.RED){
-                    playerTwo +=1;
-                }
-            }
+    private void endGame(String info){
+        Boolean answer = ConfirmBox.display("THE GAME IS OVER", info, "NEW GAME", "EXIT");
+        System.out.println(answer);
+        if (!answer){
+            Platform.exit();
+            System.exit(0);
         }
-        if (playerOne== 0) System.out.println("Wygral zawodnik 2");
-        else if (playerTwo== 0) System.out.println("Wygral zawodnik 1");
     }
 
     private PieceType attemptMove(boolean lastColor){
