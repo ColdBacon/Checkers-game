@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
@@ -20,19 +21,20 @@ public class OptionsController {
     @FXML private ComboBox rozmiarCombo, colorCombo;
     @FXML private Slider clock;
 
-    private Options options = new Options("WHITE", "RED",8,1,"Multicd Player");
+    private Options options = new Options("WHITE", "RED",8,1,"MultiPlayer");
 
     @FXML
     public void loadGame() throws IOException {
         int tile;
         if (options.size == 8) tile = 68;
         else tile = 55;
+        Clock clock = new Clock(options.time,0,330,10);
         Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
-        gameWindow.getChildren().add(checkers.createContent());
+        gameWindow.getChildren().addAll(checkers.createContent(),clock);
         optionsWindow.getChildren().setAll(gameWindow);
-        DownloadTimer timer = new DownloadTimer(options.time, 0);
-        timer.start();
+        //DownloadTimer timer = new DownloadTimer(options.time, 0);
+        //timer.start();
     }
 
     @FXML

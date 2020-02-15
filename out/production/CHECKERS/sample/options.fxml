@@ -8,20 +8,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/wood.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OptionsController">
+<VBox fx:id="optionsWindow" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/pictures/wod.jpg');" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.OptionsController">
     <children>
         <Label text="OPTIONS">
             <font>
-                <Font name="Agency FB" size="40.0" />
+                <Font name="Agency FB" size="60.0" />
             </font>
             <VBox.margin>
                 <Insets bottom="30.0" top="10.0" />
             </VBox.margin></Label>
-        <GridPane prefHeight="300.0" prefWidth="600.0">
+        <GridPane prefHeight="300.0" prefWidth="614.0">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="171.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="219.0" minWidth="10.0" prefWidth="197.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="182.0" minWidth="10.0" prefWidth="172.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.0" minWidth="10.0" prefWidth="169.2" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.6" minWidth="10.0" prefWidth="256.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="191.0" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="168.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
@@ -32,7 +32,7 @@
                     <children>
                         <Label text="TRYB GRY">
                             <font>
-                                <Font name="Agency FB" size="25.0" />
+                                <Font name="Agency FB" size="30.0" />
                             </font>
                             <VBox.margin>
                                 <Insets bottom="20.0" left="30.0" />
@@ -55,9 +55,9 @@
                 </VBox>
                 <VBox alignment="TOP_CENTER" prefHeight="134.0" prefWidth="199.0" GridPane.columnIndex="1">
                     <children>
-                        <Label prefHeight="31.0" prefWidth="135.0" text="ZESTAW PIONÓW ">
+                        <Label prefHeight="38.0" prefWidth="161.0" text="ZESTAW PIONÓW ">
                             <font>
-                                <Font name="Agency FB" size="25.0" />
+                                <Font name="Agency FB" size="30.0" />
                             </font>
                             <VBox.margin>
                                 <Insets bottom="20.0" />
@@ -81,7 +81,7 @@
                     <children>
                         <Label text="ROZMIAR PLANSZY">
                             <font>
-                                <Font name="Agency FB" size="25.0" />
+                                <Font name="Agency FB" size="30.0" />
                             </font>
                             <VBox.margin>
                                 <Insets bottom="20.0" />
@@ -104,7 +104,7 @@
                     <children>
                         <Label text="CZAS GRY">
                             <font>
-                                <Font name="Agency FB" size="25.0" />
+                                <Font name="Agency FB" size="30.0" />
                             </font>
                             <VBox.margin>
                                 <Insets />
@@ -121,12 +121,12 @@
                 <Insets left="40.0" right="40.0" />
             </VBox.margin>
         </GridPane>
-        <Button fx:id="backButton" mnemonicParsing="false" onAction="#loadGame" prefHeight="60.0" prefWidth="100.0" style="-fx-background-color: lightgrey;" text="START">
+        <Button fx:id="backButton" mnemonicParsing="false" onAction="#loadGame" prefHeight="67.0" prefWidth="124.0" style="-fx-background-image: url('sample/pictures/button.jpg');" text="START">
             <opaqueInsets>
                 <Insets />
             </opaqueInsets>
             <font>
-                <Font name="Agency FB" size="20.0" />
+                <Font name="Agency FB" size="35.0" />
             </font>
             <VBox.margin>
                 <Insets bottom="20.0" />

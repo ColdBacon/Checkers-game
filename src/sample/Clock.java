@@ -30,7 +30,8 @@ public class Clock extends Pane {
         label.setTranslateY(Yvalue);
         label.setMinWidth(60);
         label.setMinHeight(30);
-        label.setStyle("-fx-background-color: WHITE; -fx-font-size: 25");
+        //label.setStyle("-fx-background-color: WHITE; -fx-font-size: 25");
+        label.setStyle(" -fx-font-size: 30");
 
         getChildren().add(label);
         animation = new Timeline(new KeyFrame(Duration.seconds(1), e->timeLabel()));

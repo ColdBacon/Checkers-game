@@ -2,12 +2,13 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="gameWindow" fx:controller="sample.Controller" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml">
+<AnchorPane fx:id="gameWindow" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <children>
-        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/wood.jpg');">
+        <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" style="-fx-background-image: url('sample/pictures/wod.jpg');">
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="10.0" prefWidth="486.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.0" minWidth="10.0" prefWidth="114.0" />
@@ -18,13 +19,23 @@
            <children>
               <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                  <children>
-                    <Button fx:id="backMenu" mnemonicParsing="false" onAction="#reloadStart" text="BACK">
+                    <Button fx:id="backMenu" mnemonicParsing="false" onAction="#reloadStart" style="-fx-background-color: BURLYWOOD;" text="BACK">
                        <font>
                           <Font name="Agency FB" size="25.0" />
                        </font>
                        <VBox.margin>
                           <Insets bottom="20.0" right="30.0" />
                        </VBox.margin>
+                     <effect>
+                        <Lighting>
+                           <bumpInput>
+                              <Shadow />
+                           </bumpInput>
+                           <light>
+                              <Light.Distant />
+                           </light>
+                        </Lighting>
+                     </effect>
                     </Button>
                  </children>
               </VBox>
