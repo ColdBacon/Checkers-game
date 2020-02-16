@@ -26,10 +26,13 @@ public class OptionsController {
     @FXML
     public void loadGame() throws IOException {
         int tile;
+        boolean mode;
         if (options.size == 8) tile = 68;
         else tile = 55;
+        if (options.gameMode == "MultiPlayer") mode = false;
+        else mode = true;
         Clock clock = new Clock(options.time,0,330,10);
-        Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2);
+        Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2,mode);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
         gameWindow.getChildren().addAll(checkers.createContent(),clock);
         optionsWindow.getChildren().setAll(gameWindow);

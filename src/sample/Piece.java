@@ -4,6 +4,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Piece extends StackPane {
 
     private PieceType type;
@@ -12,6 +15,7 @@ public class Piece extends StackPane {
 
     private double mouseX, mouseY;
     private double oldX, oldY;
+    private HashMap<Integer,Integer> neighbours;
 
     public PieceType getType() {
         return type;
@@ -41,7 +45,7 @@ public class Piece extends StackPane {
         this.color1 = col1;
         this.color2 = col2;
 
-        move(x, y);
+        move(x, y, type);
 
         Ellipse bg = new Ellipse(TILE_SIZE * 0.31, TILE_SIZE * 0.25);
         bg.setFill(Color.BLACK);
@@ -100,10 +104,27 @@ public class Piece extends StackPane {
         });
     }
 
-    public void move(int x, int y) {
+    public void move(int x, int y,PieceType type) {
         oldX = x * TILE_SIZE;
         oldY = y * TILE_SIZE;
         relocate(oldX, oldY);
+        /*
+        if (type == PieceType.RED){
+            this.neighbours.put(x+1,y+1);
+            this.neighbours.put(x+1,y-1);
+        }
+        else if (type == PieceType.WHITE){
+            this.neighbours.put(x-1,y+1);
+            this.neighbours.put(x-1,y-1);
+        }
+        else {
+            this.neighbours.put(x-1,y+1);
+            this.neighbours.put(x-1,y-1);
+            this.neighbours.put(x+1,y-1);
+            this.neighbours.put(x+1,y-1);
+        }
+
+         */
     }
 
     public void abortMove() {

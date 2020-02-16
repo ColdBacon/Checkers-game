@@ -50,7 +50,7 @@ public class Controller {
 
     @FXML
     public void loadGame(ActionEvent actionEvent) throws IOException {
-        Checkers checkers = new Checkers(68, 8, "WHITE", "RED");
+        Checkers checkers = new Checkers(68, 8, "WHITE", "RED",false);
         Clock clock = new Clock(2,0,330,10);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
         gameWindow.getChildren().addAll(checkers.createContent(),clock);

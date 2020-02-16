@@ -1,6 +1,7 @@
 package sample;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 import javafx.scene.layout.Background;
 import javafx.scene.shape.*;
@@ -22,6 +23,7 @@ public class Tile extends Rectangle {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+
 
     public Tile(int TILE_SIZE, boolean light, int x, int y) {
         setWidth(TILE_SIZE);
