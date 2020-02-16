@@ -27,7 +27,7 @@ public class Checkers {
         this.board = new Tile[WIDTH+1][HEIGHT+1];
         this.color1 = col1;
         this.color2 = col2;
-        this.lastColor = true;
+        this.lastColor = false;
         this.WHITEcounter = (int) (size * 1.5);
         this.REDcounter = (int) (size * 1.5);
     }
@@ -73,16 +73,18 @@ public class Checkers {
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
 
-        System.out.println(piece.getType());
-        System.out.println("NEW X:"+newX);
-        System.out.println("NEW Y:"+newY);
+        //System.out.println(piece.getType());
+        //System.out.println("NEW X:"+newX);
+        //System.out.println("NEW Y:"+newY);
 
-        System.out.println("COUNTER WHITE: " + this.WHITEcounter);
-        System.out.println("COUNTER RED: " + this.REDcounter);
+        //System.out.println("COUNTER WHITE: " + this.WHITEcounter);
+        //System.out.println("COUNTER RED: " + this.REDcounter);
 
-        if(attemptMove(this.lastColor) == piece.getType()) {
+        if(this.lastColor == piece.getType().playerType) {
 
-            if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
+            System.out.println(piece.getType());
+
+            if ((piece.getType() == PieceType.WHITE || piece.getType() == PieceType.RED) && (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0)) {
                 return new MoveResult(MoveType.NONE);
             }
 
@@ -109,10 +111,36 @@ public class Checkers {
                 int x1 = x0 + (newX - x0) / 2;
                 int y1 = y0 + (newY - y0) / 2;
 
+                Group movePath = new Group();
 
-                if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getType() != piece.getType()) {
+                if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getPlayer() != piece.getPlayer()) {
                     this.lastColor = !this.lastColor;
-                    return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+                    MoveResult currentMove =  new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+                    movePath.getChildren().add(board[x1][y1].getPiece());
+                    return currentMove;
+                }
+            }
+            else if (piece.getType() == PieceType.QUEEN_RED || piece.getType() == PieceType.QUEEN_WHITE){
+                if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
+                    System.out.println("BEZ RUCHU KROLOWEJ");
+                    return new MoveResult(MoveType.NONE);
+                }
+                else if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir || newY - y0 == piece.getType().moveDir * -1) {
+                    this.lastColor = !this.lastColor;
+                    return new MoveResult(MoveType.NORMAL);
+                }
+                else if (Math.abs(newX - x0) == 2 && (newY - y0 == piece.getType().moveDir * 2 || newY - y0 == piece.getType().moveDir * -2)){
+                    int x1 = x0 + (newX - x0) / 2;
+                    int y1 = y0 + (newY - y0) / 2;
+
+                    Group movePath = new Group();
+
+                    if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getPlayer() != piece.getPlayer()) {
+                        this.lastColor = !this.lastColor;
+                        MoveResult currentMove =  new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+                        movePath.getChildren().add(board[x1][y1].getPiece());
+                        return currentMove;
+                    }
                 }
             }
         }
@@ -161,7 +189,22 @@ public class Checkers {
                     if(piece.getType() == PieceType.WHITE || piece.getType() == PieceType.QUEEN_WHITE) this.REDcounter -= 1;
                     else if(piece.getType() == PieceType.RED || piece.getType() == PieceType.QUEEN_RED ) this.WHITEcounter -= 1;
 
-                    if (this.REDcounter == 0) {
+                    if (newY == 1 && piece.getType() == PieceType.WHITE) {
+                        Piece newPiece;
+                        newPiece = makePiece(PieceType.QUEEN_WHITE, newX, newY);
+                        pieceGroup.getChildren().remove(piece);
+                        pieceGroup.getChildren().add(newPiece);
+                        board[newX][newY].setPiece(newPiece);
+                        //System.out.println("ZMIANA PIONKA 1");
+                    }
+                    else if (newY == this.getHEIGHT() && piece.getType() == PieceType.RED){
+                        Piece newPiece2;
+                        newPiece2 = makePiece(PieceType.QUEEN_RED, newX, newY);
+                        pieceGroup.getChildren().remove(piece);
+                        pieceGroup.getChildren().add(newPiece2);
+                        board[newX][newY].setPiece(newPiece2);
+                    }
+                    else if (this.REDcounter == 0) {
                         System.out.println("WHITE WIN");
                         endGame("WHITE WIN");
                     }
@@ -169,27 +212,27 @@ public class Checkers {
                         System.out.println("RED WIN");
                         endGame("RED WIN");
                     }
-
                     break;
+
                 case QUEEN1:
+                    Piece newPiece;
+                    newPiece = makePiece(PieceType.QUEEN_WHITE, newX, newY);
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
-                    board[newX][newY].setPiece(null);
                     pieceGroup.getChildren().remove(piece);
-                    Piece queen = new Piece(PieceType.QUEEN_WHITE,TILE_SIZE,newX,newY,piece.getColor1(),piece.getColor2());
-                    pieceGroup.getChildren().add(queen);
-                    board[newX][newY].setPiece(queen);
-                    System.out.println("ZMIANA PIONKA 1");
+                    pieceGroup.getChildren().add(newPiece);
+                    board[newX][newY].setPiece(newPiece);
+                    //board[newX][newY].setPiece(null);
+                    //Piece queen = new Piece(PieceType.QUEEN_WHITE,TILE_SIZE,newX,newY,piece.getColor1(),piece.getColor2());
                     break;
                 case QUEEN2:
+                    Piece newPiece2;
+                    newPiece2 = makePiece(PieceType.QUEEN_RED, newX, newY);
                     piece.move(newX, newY);
                     board[x0][y0].setPiece(null);
-                    board[newX][newY].setPiece(null);
                     pieceGroup.getChildren().remove(piece);
-                    Piece queen2 = new Piece(PieceType.QUEEN_RED,TILE_SIZE,newX,newY, piece.getColor1(),piece.getColor2());
-                    pieceGroup.getChildren().add(queen2);
-                    board[newX][newY].setPiece(queen2);
-                    System.out.println("ZMIANA PIONKA 2");
+                    pieceGroup.getChildren().add(newPiece2);
+                    board[newX][newY].setPiece(newPiece2);
                     break;
             }
         });
@@ -206,8 +249,4 @@ public class Checkers {
         }
     }
 
-    private PieceType attemptMove(boolean lastColor){
-        if(lastColor) return PieceType.WHITE;
-        else return PieceType.RED;
-    }
 }

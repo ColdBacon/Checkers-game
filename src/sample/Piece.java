@@ -17,6 +17,8 @@ public class Piece extends StackPane {
         return type;
     }
 
+    public boolean getPlayer(){return type.playerType;}
+
     public double getOldX() {
         return oldX;
     }

@@ -19,7 +19,7 @@
            <children>
               <VBox alignment="BOTTOM_RIGHT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                  <children>
-                    <Button fx:id="backMenu" mnemonicParsing="false" onAction="#reloadStart" style="-fx-background-color: BURLYWOOD;" text="BACK">
+                    <Button fx:id="backMenu" mnemonicParsing="false" onAction="#reloadStart" style="-fx-background-image: url('sample/pictures/button.jpg');" text="BACK">
                        <font>
                           <Font name="Agency FB" size="25.0" />
                        </font>
