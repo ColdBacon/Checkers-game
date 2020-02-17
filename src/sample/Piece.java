@@ -108,23 +108,6 @@ public class Piece extends StackPane {
         oldX = x * TILE_SIZE;
         oldY = y * TILE_SIZE;
         relocate(oldX, oldY);
-        /*
-        if (type == PieceType.RED){
-            this.neighbours.put(x+1,y+1);
-            this.neighbours.put(x+1,y-1);
-        }
-        else if (type == PieceType.WHITE){
-            this.neighbours.put(x-1,y+1);
-            this.neighbours.put(x-1,y-1);
-        }
-        else {
-            this.neighbours.put(x-1,y+1);
-            this.neighbours.put(x-1,y-1);
-            this.neighbours.put(x+1,y-1);
-            this.neighbours.put(x+1,y-1);
-        }
-
-         */
     }
 
     public void abortMove() {

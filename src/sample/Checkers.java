@@ -1,8 +1,15 @@
 package sample;
 
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+
+import java.awt.*;
+import java.awt.event.InputEvent;
 
 public class Checkers {
 
@@ -69,7 +76,7 @@ public class Checkers {
 
     private MoveResult tryMove(Piece piece, int newX, int newY) {
 
-        if(this.lastColor == piece.getType().playerType) {
+        if(this.lastColor == piece.getType().playerType){
 
             if ((piece.getType() == PieceType.WHITE || piece.getType() == PieceType.RED) && (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0)) {
                 return new MoveResult(MoveType.NONE);
@@ -150,7 +157,12 @@ public class Checkers {
 
         if (newX < 1 || newY < 1 || newX >= WIDTH+1 || newY >= HEIGHT+1) {
             result = new MoveResult(MoveType.NONE);
-        } else {
+        }
+        else if (this.AIgame && this.lastColor){
+            //tutaj trzeba stworzyc jakies ruchy dla komputera xd
+            result = new MoveResult(MoveType.NONE);
+        }
+        else {
             result = tryMove(piece, newX, newY);
         }
 
@@ -228,30 +240,12 @@ public class Checkers {
     private Piece makePiece(PieceType type, int x, int y) {
         Piece piece = new Piece(type, TILE_SIZE, x, y, color1, color2);
 
-        if (!this.AIgame){
-            piece.setOnMouseReleased(e -> {
-                int newX = toBoard(piece.getLayoutX());
-                int newY = toBoard(piece.getLayoutY());
-                Moving(piece, newX, newY);
-            });
-        }
-        else if (!type.playerType){
-            piece.setOnMouseReleased(e -> {
-                int newX = toBoard(piece.getLayoutX());
-                int newY = toBoard(piece.getLayoutY());
-                Moving(piece, newX, newY);
-            });
-        }
-        else {
-            int a = x + 1;
-            int b = y + 1;
-            if (a>8) a = x - 1;
-            if (b>8) b = y - 1;
-            System.out.println("oldX " + x + " newX " + a);
-            System.out.println("oldY " + y + " newY " + b);
-            Moving(piece,a,b);
-        }
-        System.out.println("PO RUCHU");
+        piece.setOnMouseReleased(e -> {
+            int newX = toBoard(piece.getLayoutX());
+            int newY = toBoard(piece.getLayoutY());
+            System.out.println(newX + " " + newY);
+            Moving(piece, newX, newY);
+        });
         return piece;
     }
 
