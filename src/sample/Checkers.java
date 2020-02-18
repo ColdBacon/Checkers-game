@@ -78,6 +78,10 @@ public class Checkers {
 
         if(this.lastColor == piece.getType().playerType){
 
+            if (newX < 1 || newY < 1 || newX >= WIDTH+1 || newY >= HEIGHT+1) {
+                return new MoveResult(MoveType.NONE);
+            }
+
             if ((piece.getType()== PieceType.WHITE || piece.getType() == PieceType.RED) && (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0)) {
                 return new MoveResult(MoveType.NONE);
             }
@@ -85,11 +89,11 @@ public class Checkers {
             int x0 = toBoard(piece.getOldX());
             int y0 = toBoard(piece.getOldY());
 
-            System.out.println(x0 + " " + y0);
-            System.out.println("RUCH W LEWO: " + canMoveLeft(piece,x0,y0));
-            System.out.println("RUCH W PRAWO: " + canMoveRight(piece,x0,y0));
-            System.out.println("ZABICIE W LEWO: " + canKillLeft(piece,x0,y0));
-            System.out.println("ZABICIE W PRAWO: " + canKillRight(piece,x0,y0));
+            //System.out.println(x0 + " " + y0);
+            //System.out.println("RUCH W LEWO: " + canMoveLeft(piece,x0,y0));
+            //System.out.println("RUCH W PRAWO: " + canMoveRight(piece,x0,y0));
+            //System.out.println("ZABICIE W LEWO: " + canKillLeft(piece,x0,y0));
+            //System.out.println("ZABICIE W PRAWO: " + canKillRight(piece,x0,y0));
 
             if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir) {
                 if (newY == 1 && piece.getType() == PieceType.WHITE) {
@@ -163,12 +167,16 @@ public class Checkers {
 
         MoveResult result;
 
+        /*
         if (newX < 1 || newY < 1 || newX >= WIDTH+1 || newY >= HEIGHT+1) {
             result = new MoveResult(MoveType.NONE);
         }
         else {
             result = tryMove(piece, newX, newY);
         }
+        */
+
+        result = tryMove(piece, newX, newY);
 
         int x0 = toBoard(piece.getOldX());
         int y0 = toBoard(piece.getOldY());
@@ -216,7 +224,6 @@ public class Checkers {
                     System.out.println("RED WIN");
                     endGame("RED WIN");
                 }
-                //czy mozna wykonac ruch
 
                 this.lastColor = !this.lastColor;
                 moved = true;
@@ -243,6 +250,8 @@ public class Checkers {
                 moved = true;
                 break;
         }
+        if (!this.lastColor && isDrawOne()) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        if (this.lastColor && isDrawTwo()) endGame("REMIS,BRAK MOŻLIWYCH RUCHÓW");
         return moved;
     }
 
@@ -255,6 +264,7 @@ public class Checkers {
             if (!this.AIgame) Moving(piece, newX, newY);
             else MovingAI(piece,newX,newY);
         });
+
         return piece;
     }
 
@@ -270,31 +280,75 @@ public class Checkers {
     private void MovingAI(Piece piece, int newX, int newY) {
         //sprawdzanie, czy czlowiek wykonal swoj ruch poprawnie
         boolean result = false;
+        //boolean result = Moving(piece,newX,newY);
 
         while (!result) {
             result = Moving(piece,newX,newY);
+            /*
+            int x = (int)piece.getOldX();
+            int y = (int)piece.getOldY();
+            Piece newPiece = new Piece(piece.getType(),TILE_SIZE,x,y,color1,color2);
+            newPiece.setOnMouseReleased(e -> {
+                int newestX = toBoard(newPiece.getLayoutX());
+                int newestY = toBoard(newPiece.getLayoutY());
+                result = Moving(piece, newX, newY);
+            });
+
+             */
         }
         AImove();
-        //obsluzenie konca gry
     }
 
 
     private void AImove() {
 
-        MoveResult result;
-
-        System.out.println("JESTEM");
-        for (int y = 1; y < HEIGHT + 1; y++) {
+        for (int y = HEIGHT; y > 0; y--) {
             for (int x = 1; x < WIDTH + 1; x++) {
                 if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType) {
-                    if(canKillLeft(board[x][y].getPiece(),x,y)) {
+                    if (canKillLeft(board[x][y].getPiece(), x, y)) {
                         int moveDir = board[x][y].getPiece().getType().moveDir;
-                        result = tryMove(board[x][y].getPiece(),x-1,moveDir+y);
+                        Moving(board[x][y].getPiece(), x - 2, 2 * moveDir + y);
+                        return;
                     }
                 }
             }
         }
 
+        for (int y = HEIGHT; y > 0; y--) {
+            for (int x = 1; x < WIDTH + 1; x++) {
+                if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType) {
+                    if (canKillRight(board[x][y].getPiece(), x, y)) {
+                        int moveDir = board[x][y].getPiece().getType().moveDir;
+                        Moving(board[x][y].getPiece(), x + 2, 2 * moveDir + y);
+                        return;
+                    }
+                }
+            }
+        }
+
+        for (int y = HEIGHT; y > 0; y--) {
+            for (int x = 1; x < WIDTH + 1; x++) {
+                if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType) {
+                    if (canMoveLeft(board[x][y].getPiece(), x, y)) {
+                        int moveDir = board[x][y].getPiece().getType().moveDir;
+                        Moving(board[x][y].getPiece(), x - 1, moveDir + y);
+                        return;
+                    }
+                }
+            }
+        }
+
+        for (int y = HEIGHT; y > 0; y--) {
+            for (int x = 1; x < WIDTH + 1; x++) {
+                if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType) {
+                    if (canMoveRight(board[x][y].getPiece(), x, y)) {
+                        int moveDir = board[x][y].getPiece().getType().moveDir;
+                        Moving(board[x][y].getPiece(), x + 1, moveDir + y);
+                        return;
+                    }
+                }
+            }
+        }
     }
 
     private boolean canMoveLeft(Piece piece, int x, int y){
@@ -337,5 +391,26 @@ public class Checkers {
         return false;
     }
 
+    private boolean isDrawTwo() {
+        for (int y = 1; y < HEIGHT+1; y++) {
+            for (int x = 1; x < WIDTH + 1; x++) {
+                if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType){
+                    if (canMoveLeft(board[x][y].getPiece(),x,y) || canMoveRight(board[x][y].getPiece(),x,y) || canKillLeft(board[x][y].getPiece(),x,y) || canMoveRight(board[x][y].getPiece(),x,y)) return false;
+                }
+            }
+        }
+        return true;
+    }
 
+    private boolean isDrawOne() {
+        for (int y = 1; y < HEIGHT+1; y++) {
+            for (int x = 1; x < WIDTH + 1; x++) {
+                if (board[x][y].hasPiece() && !board[x][y].getPiece().getType().playerType){
+                    if (canMoveLeft(board[x][y].getPiece(),x,y) || canMoveRight(board[x][y].getPiece(),x,y) || canKillLeft(board[x][y].getPiece(),x,y) || canMoveRight(board[x][y].getPiece(),x,y)) return false;
+                }
+
+            }
+        }
+        return true;
+    }
 }
