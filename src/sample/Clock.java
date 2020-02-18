@@ -3,10 +3,11 @@ package sample;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+
+import java.util.Optional;
 
 public class Clock extends Pane {
 
@@ -61,9 +62,13 @@ public class Clock extends Pane {
         alert.setHeaderText(null);
         alert.setContentText("The game is over! Click OK to exit.");
 
-        alert.setOnHidden(evt -> Platform.exit());
+        //to nic nie robi
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getDialogPane().getButtonTypes().add(cancelButton);
 
+        alert.setOnHidden(evt -> Platform.exit());
         alert.show();
+
     }
 
     /*

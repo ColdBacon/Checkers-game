@@ -2,6 +2,7 @@ package sample;
 
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -82,7 +83,7 @@ public class Checkers {
                 return new MoveResult(MoveType.NONE);
             }
 
-            if ((piece.getType()== PieceType.WHITE || piece.getType() == PieceType.RED) && (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0)) {
+            if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
                 return new MoveResult(MoveType.NONE);
             }
 
@@ -99,19 +100,16 @@ public class Checkers {
                 if (newY == 1 && piece.getType() == PieceType.WHITE) {
 
                     this.lastColor = !this.lastColor;
-
                     return new MoveResult(MoveType.QUEEN1); }
 
                 else if (newY == this.getHEIGHT() && piece.getType() == PieceType.RED) {
 
                     this.lastColor = !this.lastColor;
-
                     return new MoveResult(MoveType.QUEEN2); }
 
                 else {
 
                     this.lastColor = !this.lastColor;
-
                     return new MoveResult(MoveType.NORMAL); }
 
             } else if (Math.abs(newX - x0) == 2 && newY - y0 == piece.getType().moveDir * 2) {
@@ -119,37 +117,26 @@ public class Checkers {
                 int x1 = x0 + (newX - x0) / 2;
                 int y1 = y0 + (newY - y0) / 2;
 
-                Group movePath = new Group();
-
                 if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getPlayer() != piece.getPlayer()) {
-                    MoveResult currentMove =  new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
-                    movePath.getChildren().add(board[x1][y1].getPiece());
-                    return currentMove;
-                }
-            }
-            else if (piece.getType() == PieceType.QUEEN_RED || piece.getType() == PieceType.QUEEN_WHITE){
-                if (board[newX][newY].hasPiece() || (newX + newY) % 2 == 0) {
-                    return new MoveResult(MoveType.NONE);
-                }
-                else if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir || newY - y0 == piece.getType().moveDir * -1) {
 
                     this.lastColor = !this.lastColor;
 
+                    return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
+                }
+            }
+            else if (piece.getType() == PieceType.QUEEN_RED || piece.getType() == PieceType.QUEEN_WHITE){
+                if (Math.abs(newX - x0) == 1 && newY - y0 == piece.getType().moveDir || newY - y0 == piece.getType().moveDir * -1) {
+                    this.lastColor = !this.lastColor;
                     return new MoveResult(MoveType.NORMAL);
                 }
                 else if (Math.abs(newX - x0) == 2 && (newY - y0 == piece.getType().moveDir * 2 || newY - y0 == piece.getType().moveDir * -2)){
                     int x1 = x0 + (newX - x0) / 2;
                     int y1 = y0 + (newY - y0) / 2;
 
-                    Group movePath = new Group();
-
                     if (board[x1][y1].hasPiece() && board[x1][y1].getPiece().getPlayer() != piece.getPlayer()) {
 
                         this.lastColor = !this.lastColor;
-
-                        MoveResult currentMove =  new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
-                        movePath.getChildren().add(board[x1][y1].getPiece());
-                        return currentMove;
+                        return new MoveResult(MoveType.KILL, board[x1][y1].getPiece());
                     }
                 }
             }
@@ -219,13 +206,14 @@ public class Checkers {
                 else if (this.REDcounter == 0) {
                     System.out.println("WHITE WIN");
                     endGame("WHITE WIN");
+                    return moved;
                 }
                 else if (this.WHITEcounter == 0) {
                     System.out.println("RED WIN");
                     endGame("RED WIN");
+                    return moved;
                 }
 
-                this.lastColor = !this.lastColor;
                 moved = true;
                 break;
 
@@ -251,7 +239,7 @@ public class Checkers {
                 break;
         }
         if (!this.lastColor && isDrawOne()) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
-        if (this.lastColor && isDrawTwo()) endGame("REMIS,BRAK MOŻLIWYCH RUCHÓW");
+        if (this.lastColor && isDrawTwo()) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
         return moved;
     }
 
@@ -273,7 +261,6 @@ public class Checkers {
         System.out.println(answer);
         if (!answer){
             Platform.exit();
-            System.exit(0);
         }
     }
 
@@ -296,9 +283,9 @@ public class Checkers {
 
              */
         }
+
         AImove();
     }
-
 
     private void AImove() {
 
