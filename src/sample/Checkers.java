@@ -266,25 +266,8 @@ public class Checkers {
 
     private void MovingAI(Piece piece, int newX, int newY) {
         //sprawdzanie, czy czlowiek wykonal swoj ruch poprawnie
-        boolean result = false;
-        //boolean result = Moving(piece,newX,newY);
-
-        while (!result) {
-            result = Moving(piece,newX,newY);
-            /*
-            int x = (int)piece.getOldX();
-            int y = (int)piece.getOldY();
-            Piece newPiece = new Piece(piece.getType(),TILE_SIZE,x,y,color1,color2);
-            newPiece.setOnMouseReleased(e -> {
-                int newestX = toBoard(newPiece.getLayoutX());
-                int newestY = toBoard(newPiece.getLayoutY());
-                result = Moving(piece, newX, newY);
-            });
-
-             */
-        }
-
-        AImove();
+        boolean result = Moving(piece,newX,newY);
+        if (result) AImove();
     }
 
     private void AImove() {
