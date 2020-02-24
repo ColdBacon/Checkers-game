@@ -62,13 +62,14 @@ public class Clock extends Pane {
         alert.setHeaderText(null);
         alert.setContentText("The game is over! Click OK to exit.");
 
-        //to nic nie robi
-        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-        alert.getDialogPane().getButtonTypes().add(cancelButton);
-
         alert.setOnHidden(evt -> Platform.exit());
         alert.show();
+    }
 
+    private void stopTime() {
+        if (animation != null) {
+            animation.stop();
+        }
     }
 
     /*
