@@ -23,6 +23,7 @@ public class Checkers {
     private boolean AIgame;
     private int WHITEcounter;
     private int REDcounter;
+    private boolean endGame;
 
     public Checkers(int tile, int size, String col1, String col2,boolean AI){
         this.TILE_SIZE = tile;
@@ -33,6 +34,7 @@ public class Checkers {
         this.color2 = col2;
         this.lastColor = false;
         this.AIgame = AI;
+        this.endGame = false;
         this.WHITEcounter = (int) (size * 1.5);
         this.REDcounter = (int) (size * 1.5);
     }
@@ -202,11 +204,13 @@ public class Checkers {
                 else if (this.REDcounter == 0) {
                     System.out.println("WHITE WIN");
                     endGame("WHITE WIN");
+                    endGame = true;
                     return moved;
                 }
                 else if (this.WHITEcounter == 0) {
                     System.out.println("RED WIN");
                     endGame("RED WIN");
+                    endGame = true;
                     return moved;
                 }
 
@@ -243,8 +247,8 @@ public class Checkers {
                 moved = true;
                 break;
         }
-        if (!this.lastColor && isDrawOne()) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
-        if (this.lastColor && isDrawTwo()) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        if (!this.lastColor && isDrawOne() && !endGame) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        if (this.lastColor && isDrawTwo() && !endGame) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
         return moved;
     }
 
@@ -264,15 +268,22 @@ public class Checkers {
     private void endGame(String info){
         Boolean answer = ConfirmBox.display("THE GAME IS OVER", info, "NEW GAME", "EXIT");
         System.out.println(answer);
+        /*
         if (!answer){
             Platform.exit();
         }
+         */
     }
 
     private void MovingAI(Piece piece, int newX, int newY) {
         //sprawdzanie, czy czlowiek wykonal swoj ruch poprawnie
         boolean result = Moving(piece,newX,newY);
-        if (result) AImove();
+        boolean AI;
+        if (result) {
+            do{
+                AImove();
+            }while(this.lastColor);
+        }
     }
 
     private void AImove() {
@@ -407,14 +418,14 @@ public class Checkers {
             if(x+2<this.HEIGHT+1 && y+2 < this.WIDTH && !board[x+2][y+2].hasPiece() && board[x+1][y+1].hasPiece() && board[x+1][y+1].getPiece().getPlayer() != piece.getPlayer()) return true;
         }
         else if (piece.getType() == PieceType.QUEEN_RED) {
-            if(y-2>0 && x-2<this.WIDTH+1 && !board[x+2][y-2].hasPiece() && board[x+1][y-1].hasPiece() && board[x+1][y-1].getPiece().getPlayer() != piece.getPlayer()) return true;
+            if(y-2>0 && x+2<this.WIDTH+1 && !board[x+2][y-2].hasPiece() && board[x+1][y-1].hasPiece() && board[x+1][y-1].getPiece().getPlayer() != piece.getPlayer()) return true;
         }
         return false;
     }
 
     private boolean canKillRightQueen(Piece piece, int x, int y){
         if (piece.getType() == PieceType.QUEEN_WHITE) {
-            if(y-2>0 && x-2<this.WIDTH+1 && !board[x+2][y-2].hasPiece() && board[x+1][y-1].hasPiece() && board[x+1][y-1].getPiece().getPlayer() != piece.getPlayer()) return true;
+            if(y-2>0 && x+2<this.WIDTH+1 && !board[x+2][y-2].hasPiece() && board[x+1][y-1].hasPiece() && board[x+1][y-1].getPiece().getPlayer() != piece.getPlayer()) return true;
         }
         else if (piece.getType() == PieceType.QUEEN_RED){
             if(x+2<this.HEIGHT+1 && y+2 < this.WIDTH && !board[x+2][y+2].hasPiece() && board[x+1][y+1].hasPiece() && board[x+1][y+1].getPiece().getPlayer() != piece.getPlayer()) return true;
@@ -456,7 +467,5 @@ public class Checkers {
         }
         return false;
     }
-    //multibicia, ale nie musi byc najdluzsza droga
-    //sprawdzac czy po biciu nadal jest mozliwe bicie tym pionkiem
 
 }

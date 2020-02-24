@@ -39,7 +39,10 @@ public class ConfirmBox {
         });
 
         VBox layout = new VBox(10);
-        layout.getChildren().addAll(label,yesButton,noButton);
+        if(title.equals("THE GAME IS OVER")){
+            layout.getChildren().addAll(label,noButton);
+        }
+        else layout.getChildren().addAll(label,yesButton,noButton);
         layout.setAlignment(Pos.CENTER);
         Scene scene = new Scene(layout);
         window.setScene(scene);
