@@ -7,8 +7,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-import java.util.Optional;
-
 public class Clock extends Pane {
 
     private Timeline animation;
@@ -66,7 +64,7 @@ public class Clock extends Pane {
         alert.show();
     }
 
-    private void stopTime() {
+    public void stopTime() {
         if (animation != null) {
             animation.stop();
         }

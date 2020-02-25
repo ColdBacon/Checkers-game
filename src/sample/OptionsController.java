@@ -32,7 +32,7 @@ public class OptionsController {
         if (options.gameMode == "MultiPlayer") mode = false;
         else mode = true;
         Clock clock = new Clock(options.time,0,330,10);
-        Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2,mode);
+        Checkers checkers = new Checkers(tile, options.size,options.color1,options.color2,mode,clock);
         gameWindow = FXMLLoader.load(getClass().getResource("game.fxml"));
         gameWindow.getChildren().addAll(checkers.createContent(),clock);
         optionsWindow.getChildren().setAll(gameWindow);

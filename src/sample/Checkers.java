@@ -24,8 +24,9 @@ public class Checkers {
     private int WHITEcounter;
     private int REDcounter;
     private boolean endGame;
+    private Clock clock;
 
-    public Checkers(int tile, int size, String col1, String col2,boolean AI){
+    public Checkers(int tile, int size, String col1, String col2,boolean AI,Clock clock){
         this.TILE_SIZE = tile;
         this.WIDTH = size;
         this.HEIGHT = size;
@@ -35,6 +36,7 @@ public class Checkers {
         this.lastColor = false;
         this.AIgame = AI;
         this.endGame = false;
+        this.clock = clock;
         this.WHITEcounter = (int) (size * 1.5);
         this.REDcounter = (int) (size * 1.5);
     }
@@ -170,12 +172,13 @@ public class Checkers {
                 piece.abortMove();
                 break;
             case NORMAL:
-                this.lastColor = !this.lastColor;
                 piece.move(newX, newY,piece.getType());
                 board[x0][y0].setPiece(null);
                 board[newX][newY].setPiece(piece);
                 moved = true;
+                this.lastColor = !this.lastColor;
                 break;
+
             case KILL:
                 piece.move(newX, newY,piece.getType());
                 board[x0][y0].setPiece(null);
@@ -203,12 +206,14 @@ public class Checkers {
                 }
                 else if (this.REDcounter == 0) {
                     System.out.println("WHITE WIN");
+                    clock.stopTime();
                     endGame("WHITE WIN");
                     endGame = true;
                     return moved;
                 }
                 else if (this.WHITEcounter == 0) {
                     System.out.println("RED WIN");
+                    clock.stopTime();
                     endGame("RED WIN");
                     endGame = true;
                     return moved;
@@ -225,7 +230,6 @@ public class Checkers {
                 break;
 
             case QUEEN1:
-                this.lastColor = !this.lastColor;
                 Piece newPiece;
                 newPiece = makePiece(PieceType.QUEEN_WHITE, newX, newY);
                 piece.move(newX, newY,piece.getType());
@@ -234,9 +238,9 @@ public class Checkers {
                 pieceGroup.getChildren().add(newPiece);
                 board[newX][newY].setPiece(newPiece);
                 moved = true;
+                this.lastColor = !this.lastColor;
                 break;
             case QUEEN2:
-                this.lastColor = !this.lastColor;
                 Piece newPiece2;
                 newPiece2 = makePiece(PieceType.QUEEN_RED, newX, newY);
                 piece.move(newX, newY,piece.getType());
@@ -245,10 +249,18 @@ public class Checkers {
                 pieceGroup.getChildren().add(newPiece2);
                 board[newX][newY].setPiece(newPiece2);
                 moved = true;
+                this.lastColor = !this.lastColor;
                 break;
         }
-        if (!this.lastColor && isDrawOne() && !endGame) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
-        if (this.lastColor && isDrawTwo() && !endGame) endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        if (!this.lastColor && isDrawOne() && !endGame) {
+            clock.stopTime();
+            endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        }
+        if (this.lastColor && isDrawTwo() && !endGame) {
+            clock.stopTime();
+            endGame("REMIS, BRAK MOŻLIWYCH RUCHÓW");
+        }
+
         return moved;
     }
 
@@ -331,7 +343,7 @@ public class Checkers {
                 if (board[x][y].hasPiece() && board[x][y].getPiece().getType().playerType) {
                     if (canKillLeftQueen(board[x][y].getPiece(), x, y)) {
                         int moveDir = board[x][y].getPiece().getType().moveDir;
-                        Moving(board[x][y].getPiece(), x + 2, 2 * -moveDir + y);
+                        Moving(board[x][y].getPiece(), x - 2, 2 * -moveDir + y);
                         return;
                     }
                 }
